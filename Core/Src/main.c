@@ -83,7 +83,7 @@ static void MX_DAC1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	float pwm_flag = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -150,7 +150,22 @@ int main(void)
   {
 	loop();
     /* USER CODE END WHILE */
-
+    if(HAL_GPIO_ReadPin (GPIOA, GPIO_PIN_15))
+    {
+    	if(pwm_flag == 0){
+			pwm_flag = 1;
+			HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);			//Stop PWM + PWM_N H-Bridge Attuatore Lineare
+			HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_1);
+    	}
+    }
+    else
+    {
+    	if(pwm_flag == 1){
+    		pwm_flag = 0;
+    		HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);			//Start PWM + PWM_N H-Bridge Attuatore Lineare
+    		HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+    	}
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -526,7 +541,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 57600; //115200 - 57600
+  huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -607,6 +622,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
