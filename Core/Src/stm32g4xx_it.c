@@ -344,17 +344,6 @@ void TIM1_UP_TIM16_IRQHandler(void)
 		sendMess(512);
 	}
 
-	  ///////////////
-	 ///   DAC   ///
-	///////////////
-
-	DAC_Value_1 = ((4095/2)+(1.0f * I_ref * (4095/2))); //Viene normalizzato il valore che voglio passare al DAC. Risoluzione -> 4096 Posizionamento a metà per vedere valori positivi e negatvi-> 2048
-	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, DAC_Value_1);
-
-	DAC_Value_2 =((4095/2)+(1.0f * Out_Filter * (4095/2)));
-	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, DAC_Value_2);
-
-
 
   /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
   HAL_TIM_IRQHandler(&htim1);

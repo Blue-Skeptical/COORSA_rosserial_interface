@@ -41,6 +41,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+int pwm_flag = 0;
+
 ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
 
@@ -83,7 +85,7 @@ static void MX_DAC1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	float pwm_flag = 0;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
