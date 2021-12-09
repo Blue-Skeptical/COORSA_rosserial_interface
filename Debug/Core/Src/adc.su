@@ -1,0 +1,2 @@
+adc.c:11:6:read_ADC	16	static
+adc.c:39:6:AdcStruct_init	16	static
