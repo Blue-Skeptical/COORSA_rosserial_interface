@@ -2174,14 +2174,14 @@ int main(void)
  8001664:	4b12      	ldr	r3, [pc, #72]	; (80016b0 <main+0xec>)
  8001666:	2201      	movs	r2, #1
  8001668:	601a      	str	r2, [r3, #0]
-			HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);			//Stop PWM + PWM_N H-Bridge Attuatore Lineare
+			HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);			//Stop PWM + PWM_N H-Bridge Attuatore Lineare
  800166a:	2100      	movs	r1, #0
  800166c:	480b      	ldr	r0, [pc, #44]	; (800169c <main+0xd8>)
- 800166e:	f006 fd11 	bl	8008094 <HAL_TIM_PWM_Stop>
-			HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_1);
+ 800166e:	f006 fc11 	bl	8007e94 <HAL_TIM_PWM_Start>
+			HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
  8001672:	2100      	movs	r1, #0
  8001674:	4809      	ldr	r0, [pc, #36]	; (800169c <main+0xd8>)
- 8001676:	f007 fcc5 	bl	8009004 <HAL_TIMEx_PWMN_Stop>
+ 8001676:	f007 fc11 	bl	8008e9c <HAL_TIMEx_PWMN_Start>
  800167a:	e7e4      	b.n	8001646 <main+0x82>
     	}
     }
@@ -2196,14 +2196,14 @@ int main(void)
  8001684:	4b0a      	ldr	r3, [pc, #40]	; (80016b0 <main+0xec>)
  8001686:	2200      	movs	r2, #0
  8001688:	601a      	str	r2, [r3, #0]
-    		HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);			//Start PWM + PWM_N H-Bridge Attuatore Lineare
+    		HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);			//Start PWM + PWM_N H-Bridge Attuatore Lineare
  800168a:	2100      	movs	r1, #0
  800168c:	4803      	ldr	r0, [pc, #12]	; (800169c <main+0xd8>)
- 800168e:	f006 fc01 	bl	8007e94 <HAL_TIM_PWM_Start>
-    		HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+ 800168e:	f006 fd01 	bl	8008094 <HAL_TIM_PWM_Stop>
+    		HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_1);
  8001692:	2100      	movs	r1, #0
  8001694:	4801      	ldr	r0, [pc, #4]	; (800169c <main+0xd8>)
- 8001696:	f007 fc01 	bl	8008e9c <HAL_TIMEx_PWMN_Start>
+ 8001696:	f007 fcb5 	bl	8009004 <HAL_TIMEx_PWMN_Stop>
 	loop();
  800169a:	e7d4      	b.n	8001646 <main+0x82>
  800169c:	20000cbc 	.word	0x20000cbc
@@ -3136,9 +3136,9 @@ static void MX_USART2_UART_Init(void)
  8001bc8:	4b22      	ldr	r3, [pc, #136]	; (8001c54 <MX_USART2_UART_Init+0x90>)
  8001bca:	4a23      	ldr	r2, [pc, #140]	; (8001c58 <MX_USART2_UART_Init+0x94>)
  8001bcc:	601a      	str	r2, [r3, #0]
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 57600;
  8001bce:	4b21      	ldr	r3, [pc, #132]	; (8001c54 <MX_USART2_UART_Init+0x90>)
- 8001bd0:	f44f 32e1 	mov.w	r2, #115200	; 0x1c200
+ 8001bd0:	f44f 4261 	mov.w	r2, #57600	; 0xe100
  8001bd4:	605a      	str	r2, [r3, #4]
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
  8001bd6:	4b1f      	ldr	r3, [pc, #124]	; (8001c54 <MX_USART2_UART_Init+0x90>)
@@ -3394,8 +3394,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
  8001d64:	2300      	movs	r3, #0
  8001d66:	613b      	str	r3, [r7, #16]
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8001d68:	2300      	movs	r3, #0
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+ 8001d68:	2302      	movs	r3, #2
  8001d6a:	617b      	str	r3, [r7, #20]
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  8001d6c:	f107 030c 	add.w	r3, r7, #12
